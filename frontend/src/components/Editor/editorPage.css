@@ -1,0 +1,284 @@
+.editor-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title-input {
+  font-size: 1.5rem;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 300px;
+  margin-right: 20px;
+}
+
+.editor-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.auto-save-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.editor-workspace {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.editor-main {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* TinyMCE specific styles */
+.tox-tinymce {
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+.tox .tox-toolbar__primary {
+  background: #f8f9fa !important;
+  border-bottom: 1px solid #e9ecef !important;
+}
+
+.tox .tox-edit-area__iframe {
+  background: white !important;
+}
+
+.tox .tox-statusbar {
+  border-top: 1px solid #e9ecef !important;
+}
+
+.drafts-panel {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.drafts-panel h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.drafts-list {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.draft-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.draft-item:last-child {
+  border-bottom: none;
+}
+
+.draft-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.draft-info strong {
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.draft-info small {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.draft-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.draft-actions button {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.draft-actions button:hover {
+  background: #e9ecef;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: #0d6efd;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0b5ed7;
+}
+
+.status-message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.status-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .editor-workspace {
+    grid-template-columns: 1fr;
+  }
+  
+  .drafts-panel {
+    margin-top: 20px;
+  }
+}
+
+.editor-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.editor-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.title-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.save-button {
+  padding: 10px 20px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.save-button:hover {
+  background-color: #357abd;
+}
+
+.status-message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.status-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* TinyMCE editor customization */
+.tox-tinymce {
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+}
+
+.tox .tox-statusbar {
+  border-top: 1px solid #ddd !important;
+}

@@ -1,0 +1,162 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page Background */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Container Styling */
+.login-container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title Styling */
+.login-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Login Options */
+.login-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Google Login Button */
+.google-login {
+  display: flex;
+  justify-content: center;
+}
+
+.google-login button {
+  background-color: #4285f4;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.google-login button:hover {
+  background-color: #357ae8;
+}
+
+/* Divider Styling */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #dddddd;
+}
+
+.divider span {
+  padding: 0 10px;
+  color: #666666;
+  font-size: 14px;
+}
+
+/* Form Styling */
+.email-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.email-login input {
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.email-login input:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 8px rgba(66, 133, 244, 0.2);
+}
+
+.email-login button {
+  padding: 12px;
+  background-color: #4285f4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.email-login button:hover {
+  background-color: #357ae8;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #d9534f;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Toggle Link Styling */
+.toggle-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.toggle-link button {
+  background: none;
+  border: none;
+  color: #4285f4;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.toggle-link button:hover {
+  color: #357ae8;
+  text-decoration: underline;
+}
