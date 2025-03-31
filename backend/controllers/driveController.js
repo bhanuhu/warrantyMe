@@ -5,18 +5,13 @@ const uploadToDrive = async (req, res) => {
   try {
     const { title, content } = req.body;
     const userId = req.user.userId;
-    
+
     if (!title || !content) {
       return res.status(400).json({ message: "Title and content are required" });
     }
 
-    // Get user from database
     const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (!user.googleId) {
+    if (!user || !user.googleRefreshToken) {
       return res.status(401).json({ message: "User not authenticated with Google" });
     }
 
@@ -24,30 +19,29 @@ const uploadToDrive = async (req, res) => {
     const oauth2Client = new google.auth.OAuth2(
       process.env.GOOGLE_CLIENT_ID,
       process.env.GOOGLE_CLIENT_SECRET,
-      'http://localhost:3000'
+      process.env.GOOGLE_REDIRECT_URI
     );
 
-    // Get new access token using client credentials
-    const { tokens } = await oauth2Client.getToken(process.env.GOOGLE_CLIENT_ID);
-    oauth2Client.setCredentials(tokens);
+    // Set refresh token
+    oauth2Client.setCredentials({ refresh_token: user.googleRefreshToken });
 
-    // Create Drive instance
+    // Get a new access token
+    const { token } = await oauth2Client.getAccessToken();
+    oauth2Client.setCredentials({ access_token: token });
+
     const drive = google.drive({ version: 'v3', auth: oauth2Client });
 
-    // Create file metadata
     const fileMetadata = {
       name: title,
       mimeType: 'application/vnd.google-apps.document',
-      parents: ['root'] // Save to root folder
+      parents: ['root']
     };
 
-    // Create file content
     const media = {
       mimeType: 'text/html',
       body: content
     };
 
-    // Upload file to Drive
     const file = await drive.files.create({
       resource: fileMetadata,
       media: media,
@@ -56,7 +50,6 @@ const uploadToDrive = async (req, res) => {
 
     console.log('File saved successfully:', file.data);
 
-    // Update file permissions to make it accessible
     await drive.permissions.create({
       fileId: file.data.id,
       requestBody: {
@@ -71,21 +64,14 @@ const uploadToDrive = async (req, res) => {
       webViewLink: file.data.webViewLink,
       fileName: file.data.name
     });
+
   } catch (error) {
     console.error('Drive save error:', error);
 
-    // Handle specific Google API errors
-    if (error.code === 401 || error.response?.status === 401) {
+    if (error.response?.data?.error === "invalid_grant") {
       return res.status(401).json({
-        message: "Google authentication failed. Please log in again.",
-        error: error.message
-      });
-    }
-
-    if (error.code === 403 || error.response?.status === 403) {
-      return res.status(403).json({
-        message: "Access to Google Drive denied. Please check permissions.",
-        error: error.message
+        message: "Invalid authorization. Please reauthenticate.",
+        error: error.response.data.error_description
       });
     }
 

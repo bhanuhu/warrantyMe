@@ -1,30 +1,19 @@
 const { google } = require("googleapis");
 
-const uploadFileToDrive = async (authToken, fileContent, fileName) => {
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
+);
+
+// Exchange authorization code for tokens
+const getAccessToken = async (authCode) => {
   try {
-    const auth = new google.auth.OAuth2();
-    auth.setCredentials({ access_token: authToken });
-
-    const drive = google.drive({ version: "v3", auth });
-    const fileMetadata = {
-      name: fileName,
-      mimeType: "application/vnd.google-apps.document",
-    };
-    const media = {
-      mimeType: "text/plain",
-      body: fileContent,
-    };
-
-    const response = await drive.files.create({
-      resource: fileMetadata,
-      media: media,
-      fields: "id",
-    });
-
-    return response.data.id;
+    const { tokens } = await oauth2Client.getToken(authCode);
+    oauth2Client.setCredentials(tokens);
+    console.log("✅ Access Token:", tokens.access_token);
+    return tokens;
   } catch (error) {
-    throw new Error("File upload failed");
+    console.error("❌ Error exchanging auth code:", error.response?.data || error.message);
   }
 };
-
-module.exports = { uploadFileToDrive };
